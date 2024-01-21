@@ -17,6 +17,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book createBook(Book book) {
+        if (book.getCreatedDate() == null) {
+            book.setCreatedDate(String.valueOf(System.currentTimeMillis()));
+        }
+        if (book.getUpdatedDate() == null) {
+            book.setUpdatedDate(String.valueOf(System.currentTimeMillis()));
+        }
         return bookRepository.save(book);
     }
 
@@ -28,5 +34,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
+    }
+
+    @Override
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
     }
 }

@@ -29,4 +29,6 @@ public class Book {
     private Double price;
     private Integer pages;
     private Boolean active;
+    private String createdDate;
+    private String updatedDate;
 }

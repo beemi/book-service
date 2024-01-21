@@ -1,0 +1,19 @@
+version: '2.1'
+
+services:
+  mysql:
+    container_name: "book-service-mysql"
+    image: mysql:latest
+    hostname: "book-service-mysql"
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=bookdb
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=password
+    volumes:
+      - "data:/var/lib/mysql"
+volumes:
+  data:

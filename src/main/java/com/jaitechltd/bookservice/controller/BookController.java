@@ -28,7 +28,6 @@ public class BookController {
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "409",
                     description = "Book already exists")})
     public ResponseEntity<?> createBook(@RequestBody Book book) {
-        log.info("create a new book controller ...");
         Book createdBook = bookServiceImpl.createBook(book);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdBook);
     }
@@ -37,7 +36,7 @@ public class BookController {
     @Operation(summary = "Get a book by id", description = "Get a book by id", tags = {"book"},
             operationId = "getBook", responses = {@io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "200", description = "Book found")})
-    public ResponseEntity<Book> getBook(@PathVariable("id") Long id) {
+    public ResponseEntity<?> getBook(@PathVariable("id") Long id) {
         log.info("Get a book by book id {} controller ...", id);
         return ResponseEntity.ok(bookServiceImpl.getBook(id));
     }

@@ -5,8 +5,8 @@
             <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
             <appendLineSeparator>true</appendLineSeparator>
         </layout>
-        <logger class="ch.qos.logback.classic.Logger" name="com.jaitechltd.bookservice" level="INFO"/>
     </appender>
+    <logger class="ch.qos.logback.classic.Logger" name="org.springframework.web" level="DEBUG"/>
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>

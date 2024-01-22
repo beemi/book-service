@@ -1,12 +1,14 @@
 package com.jaitechltd.bookservice.service;
 
 import com.jaitechltd.bookservice.exceptions.BookAlreadyExistsException;
+import com.jaitechltd.bookservice.exceptions.BookNotFoundException;
 import com.jaitechltd.bookservice.model.Book;
 import com.jaitechltd.bookservice.repository.BookRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -36,7 +38,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book getBook(Long id) {
-        return bookRepository.findById(id).orElse(null);
+        Optional<Book> book = bookRepository.findById(id);
+        if (book.isEmpty()) {
+            throw new BookNotFoundException("Book not found with id: " + id);
+        }
+        return book.get();
+
     }
 
     @Override

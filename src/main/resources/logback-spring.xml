@@ -5,9 +5,9 @@
             <timestampFormat>yyyy-MM-dd' 'HH:mm:ss.SSS</timestampFormat>
             <appendLineSeparator>true</appendLineSeparator>
         </layout>
-        <logger class="ch.qos.logback.classic.Logger" name="com.jaitechltd.bookservice" level="DEBUG"/>
+        <logger class="ch.qos.logback.classic.Logger" name="com.jaitechltd.bookservice" level="INFO"/>
     </appender>
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>

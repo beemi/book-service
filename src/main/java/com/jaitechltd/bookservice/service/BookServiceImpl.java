@@ -3,10 +3,12 @@ package com.jaitechltd.bookservice.service;
 import com.jaitechltd.bookservice.exceptions.BookAlreadyExistsException;
 import com.jaitechltd.bookservice.model.Book;
 import com.jaitechltd.bookservice.repository.BookRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -17,9 +19,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book createBook(Book book) throws BookAlreadyExistsException {
+    public Book createBook(Book book) {
         if (bookRepository.findByTitleAndAuthorAndIsbn(book.getTitle(), book.getAuthor(), book.getIsbn()) != null) {
-            throw new BookAlreadyExistsException("A book with the same title, author, and ISBN already exists.");
+            throw new BookAlreadyExistsException("A book with the same title, author, and ISBN already exists, please use a different title, author, or ISBN");
         }
 
         long currentTimeMillis = System.currentTimeMillis();

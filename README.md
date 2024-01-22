@@ -1,32 +1,37 @@
-# Spring boot book service
+# 📚 Spring Boot Book Service
 
-## Description
-This is a simple spring boot application that exposes a REST API to manage a book library.
+## 📝 Description
+This is a simple Spring Boot application that exposes a REST API to manage a book library. It's a great starting point for learning about Spring Boot, REST APIs, and database integration.
 
-## Requirements
+## 📋 Requirements
 
-- Java 17
-- Maven
-- Docker
-- Docker-compose
-- Postman
+- ☕ Java 17
+- 🏗️ Maven
+- 🐳 Docker
+- 🧩 Docker-compose
+- 📬 Postman
 
-## How to run
+## 🚀 How to Run
 
-### Run the application
+### ▶️ Run the Application Locally
+To run the application directly on your machine, use the following Maven command:
 ```shell
 mvn spring-boot:run
 ```
 
-### Run the application with docker-compose
+### 🐳 Run the Application with Docker-compose
+
+This application uses MySQL as the backend database. To run the application along with MySQL in Docker containers, use the following command:
 ```shell
 docker-compose up -d
 ```
 
-## Swagger
+## 📖 Swagger API Documentation
 
-Access Open API documentation at: http://localhost:8090/swagger-ui/index.html
+🔍 Access the OpenAPI documentation to explore and test the API endpoints:
 
-API documentation is also available in JSON format at: http://localhost:8090/v3/api-docs
+- Swagger UI: [http://localhost:8090/swagger-ui/index.html](http://localhost:8090/swagger-ui/index.html)
+
+- API Docs in JSON format: [http://localhost:8090/v3/api-docs](http://localhost:8090/v3/api-docs)
 
 ![Swagger UI](docs/images/swagger-api.png)

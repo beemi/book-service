@@ -79,8 +79,7 @@ public class BookController {
     }
 
     @GetMapping("/byPageRange")
-    @Operation(summary = "Get all books with pagination and sorting", description = "Get all books with pagination and sorting", tags = {"book"},
-            operationId = "getAllBooksByPageAndSort")
+    @Operation(summary = "Get all books by page range", description = "Get all books by page range", tags = {"book"}, operationId = "getAllBooksByPageAndSort")
     public ResponseEntity<Page<Book>> getBooksByPageRange(
             @RequestParam(value = "fromPage") int fromPage,
             @RequestParam(value = "toPage") int toPage,
@@ -93,6 +92,23 @@ public class BookController {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Book> books = bookServiceImpl.getBooksByPageRange(fromPage, toPage, pageable);
+        return ResponseEntity.ok(books);
+    }
+
+    @GetMapping("/byPriceRange")
+    @Operation(summary = "Get all books by price range", description = "Get all books by price range", tags = {"book"}, operationId = "getBooksByPriceRange")
+    public ResponseEntity<Page<Book>> getBooksByPriceRange(
+            @RequestParam(value = "fromPrice") int fromPrice,
+            @RequestParam(value = "toPrice") int toPrice,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+
+        if (fromPrice < 0 || toPrice < 0 || toPrice < fromPrice || size <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Book> books = bookServiceImpl.getBooksByPriceRange(fromPrice, toPrice, pageable);
         return ResponseEntity.ok(books);
     }
 

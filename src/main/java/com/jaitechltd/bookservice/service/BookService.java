@@ -21,4 +21,6 @@ public interface BookService {
     Page<Book> getAllBooksByPage(Pageable pageable);
 
     Page<Book> getBooksByPageRange(int fromPage, int toPage, Pageable pageable);
+
+    Page<Book> getBooksByPriceRange(int fromPrice, int toPrice, Pageable pageable);
 }

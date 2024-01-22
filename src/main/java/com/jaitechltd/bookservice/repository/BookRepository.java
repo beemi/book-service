@@ -18,4 +18,9 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             countQuery = "SELECT count(*) FROM book WHERE pages BETWEEN ?1 AND ?2",
             nativeQuery = true)
     Page<Book> findBooksByPageRange(int fromPage, int toPage, Pageable pageable);
+
+    @Query(value = "SELECT * FROM book WHERE price BETWEEN ?1 AND ?2",
+            countQuery = "SELECT count(*) FROM book WHERE price BETWEEN ?1 AND ?2",
+            nativeQuery = true)
+    Page<Book> findBooksByPriceRange(int fromPrice, int toPrice, Pageable pageable);
 }

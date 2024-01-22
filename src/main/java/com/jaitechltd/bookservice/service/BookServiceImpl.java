@@ -75,4 +75,9 @@ public class BookServiceImpl implements BookService {
     public Page<Book> getBooksByPageRange(int fromPage, int toPage, Pageable pageable) {
         return bookRepository.findBooksByPageRange(fromPage, toPage, pageable);
     }
+
+    @Override
+    public Page<Book> getBooksByPriceRange(int fromPrice, int toPrice, Pageable pageable) {
+        return bookRepository.findBooksByPriceRange(fromPrice, toPrice, pageable);
+    }
 }

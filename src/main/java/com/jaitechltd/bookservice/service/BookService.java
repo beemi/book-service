@@ -6,9 +6,11 @@ import java.util.List;
 
 public interface BookService {
 
-    public Book createBook(Book book);
+    Book createBook(Book book);
 
     Book getBook(Long id);
+
+    List<Book> findByTitleAndAuthorAndIsbn(final String title, final String author, final String isbn);
 
     List<Book> getAllBooks();
 

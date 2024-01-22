@@ -38,4 +38,4 @@ docker-compose up -d
 
 - API Docs in JSON format: [http://localhost:8090/v3/api-docs](http://localhost:8090/v3/api-docs)
 
-![Swagger UI](docs/images/swagger-api.png)
+![Swagger UI](docs/images/swagger.png)

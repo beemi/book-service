@@ -19,4 +19,6 @@ public interface BookService {
     void deleteBook(Long id);
 
     Page<Book> getAllBooksByPage(Pageable pageable);
+
+    Page<Book> getBooksByPageRange(int fromPage, int toPage, Pageable pageable);
 }

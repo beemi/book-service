@@ -6,7 +6,6 @@ import com.jaitechltd.bookservice.model.Book;
 import com.jaitechltd.bookservice.repository.BookRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -70,5 +69,10 @@ public class BookServiceImpl implements BookService {
     @Override
     public Page<Book> getAllBooksByPage(Pageable pageable) {
         return bookRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Book> getBooksByPageRange(int fromPage, int toPage, Pageable pageable) {
+        return bookRepository.findBooksByPageRange(fromPage, toPage, pageable);
     }
 }

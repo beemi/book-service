@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -76,6 +75,24 @@ public class BookController {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<Book> books = bookServiceImpl.getAllBooksByPage(pageable);
+        return ResponseEntity.ok(books);
+    }
+
+    @GetMapping("/byPageRange")
+    @Operation(summary = "Get all books with pagination and sorting", description = "Get all books with pagination and sorting", tags = {"book"},
+            operationId = "getAllBooksByPageAndSort")
+    public ResponseEntity<Page<Book>> getBooksByPageRange(
+            @RequestParam(value = "fromPage") int fromPage,
+            @RequestParam(value = "toPage") int toPage,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+
+        if (fromPage < 0 || toPage < 0 || toPage < fromPage || size <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Book> books = bookServiceImpl.getBooksByPageRange(fromPage, toPage, pageable);
         return ResponseEntity.ok(books);
     }
 

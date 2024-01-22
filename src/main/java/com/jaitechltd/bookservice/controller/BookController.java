@@ -4,9 +4,13 @@ import com.jaitechltd.bookservice.model.Book;
 import com.jaitechltd.bookservice.service.BookServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -62,10 +66,17 @@ public class BookController {
     @GetMapping("/allByPage")
     @Operation(summary = "Get all books with pagination", description = "Get all books with pagination", tags = {"book"},
             operationId = "getAllBooksByPage")
-    public ResponseEntity<Iterable<Book>> getAllBooksByPage(@RequestParam(value = "page", required = false) Integer page,
-                                                             @RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
+    public ResponseEntity<Page<Book>> getAllBooksByPage(@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+                                                        @RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
         log.info("getAllBooksByPage ...");
-        return ResponseEntity.ok(bookServiceImpl.getAllBooksByPage(page, size));
+
+        if (page < 0 || size <= 1) {
+            return ResponseEntity.badRequest().body(Page.empty());
+        }
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Book> books = bookServiceImpl.getAllBooksByPage(pageable);
+        return ResponseEntity.ok(books);
     }
 
     @GetMapping("/count")

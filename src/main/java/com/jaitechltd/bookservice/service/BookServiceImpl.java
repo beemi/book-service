@@ -5,7 +5,9 @@ import com.jaitechltd.bookservice.exceptions.BookNotFoundException;
 import com.jaitechltd.bookservice.model.Book;
 import com.jaitechltd.bookservice.repository.BookRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -66,9 +68,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Iterable<Book> getAllBooksByPage(Integer page, Integer size) {
-
-        PageRequest pageRequest = PageRequest.of(page, size);
-        return bookRepository.findAll(pageRequest);
+    public Page<Book> getAllBooksByPage(Pageable pageable) {
+        return bookRepository.findAll(pageable);
     }
 }

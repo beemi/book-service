@@ -1,6 +1,8 @@
 package com.jaitechltd.bookservice.service;
 
 import com.jaitechltd.bookservice.model.Book;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -16,5 +18,5 @@ public interface BookService {
 
     void deleteBook(Long id);
 
-    Iterable<Book> getAllBooksByPage(Integer page, Integer size);
+    Page<Book> getAllBooksByPage(Pageable pageable);
 }

@@ -37,7 +37,6 @@ public class BookController {
             operationId = "getBook", responses = {@io.swagger.v3.oas.annotations.responses.ApiResponse(
             responseCode = "200", description = "Book found")})
     public ResponseEntity<?> getBook(@PathVariable("id") Long id) {
-        log.info("Get a book by book id {} controller ...", id);
         return ResponseEntity.ok(bookServiceImpl.getBook(id));
     }
 
@@ -60,11 +59,27 @@ public class BookController {
         return ResponseEntity.ok(bookServiceImpl.getAllBooks());
     }
 
+    @GetMapping("/allByPage")
+    @Operation(summary = "Get all books with pagination", description = "Get all books with pagination", tags = {"book"},
+            operationId = "getAllBooksByPage")
+    public ResponseEntity<Iterable<Book>> getAllBooksByPage(@RequestParam(value = "page", required = false) Integer page,
+                                                             @RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
+        log.info("getAllBooksByPage ...");
+        return ResponseEntity.ok(bookServiceImpl.getAllBooksByPage(page, size));
+    }
+
+    @GetMapping("/count")
+    @Operation(summary = "Get count of all books", description = "Get count of all books", tags = {"book"},
+            operationId = "getCountOfAllBooks")
+    public ResponseEntity<Long> getCountOfAllBooks() {
+        log.info("getCountOfAllBooks ...");
+        return ResponseEntity.ok(bookServiceImpl.getAllBooks().spliterator().getExactSizeIfKnown());
+    }
+
     @DeleteMapping("/{id}/delete")
     @Operation(summary = "Delete a book by id", description = "Delete a book by id", tags = {"book"},
             operationId = "deleteBook")
     public ResponseEntity<String> deleteBook(@PathVariable("id") Long id) {
-        log.info("deleteBook ...");
         bookServiceImpl.deleteBook(id);
         return ResponseEntity.noContent().build();
     }

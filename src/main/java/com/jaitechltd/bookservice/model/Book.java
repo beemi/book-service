@@ -1,9 +1,6 @@
 package com.jaitechltd.bookservice.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +21,8 @@ public class Book {
     private String category;
     private String language;
     private String edition;
+
+    @Column(length = 1000)
     private String description;
     private String coverPhotoUrl;
     private Double price;

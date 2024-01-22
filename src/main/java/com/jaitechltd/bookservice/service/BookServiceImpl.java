@@ -5,6 +5,7 @@ import com.jaitechltd.bookservice.exceptions.BookNotFoundException;
 import com.jaitechltd.bookservice.model.Book;
 import com.jaitechltd.bookservice.repository.BookRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +23,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book createBook(Book book) {
-        if (bookRepository.findByTitleAndAuthorAndIsbn(book.getTitle(), book.getAuthor(), book.getIsbn()) != null) {
+
+        List<Book> existingBook = bookRepository.findByTitleAndAuthorAndIsbn(book.getTitle(), book.getAuthor(), book.getIsbn());
+        log.info("existingBook: {}", existingBook);
+        if (!existingBook.isEmpty()) {
             throw new BookAlreadyExistsException("A book with the same title, author, and ISBN already exists, please use a different title, author, or ISBN");
         }
 
@@ -59,5 +63,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public Iterable<Book> getAllBooksByPage(Integer page, Integer size) {
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return bookRepository.findAll(pageRequest);
     }
 }

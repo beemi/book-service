@@ -15,4 +15,6 @@ public interface BookService {
     List<Book> getAllBooks();
 
     void deleteBook(Long id);
+
+    Iterable<Book> getAllBooksByPage(Integer page, Integer size);
 }

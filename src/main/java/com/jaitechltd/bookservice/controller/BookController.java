@@ -35,6 +35,16 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdBook);
     }
 
+    @PutMapping("/{id}/update")
+    @Operation(summary = "Update a book by id", description = "Update a book by id", tags = {"book"},
+            operationId = "updateBook", responses = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Book updated"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "404", description = "Book not found")})
+    public ResponseEntity<?> updateBook(@PathVariable("id") Long id, @RequestBody Book book) {
+        Book updatedBook = bookServiceImpl.updateBook(id, book);
+        return ResponseEntity.ok(updatedBook);
+    }
+
     @GetMapping("/{id}")
     @Operation(summary = "Get a book by id", description = "Get a book by id", tags = {"book"},
             operationId = "getBook", responses = {@io.swagger.v3.oas.annotations.responses.ApiResponse(

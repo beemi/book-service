@@ -42,6 +42,22 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Book updateBook(Long id, Book book) {
+        Optional<Book> existingBook = bookRepository.findById(id);
+        if (existingBook.isEmpty()) {
+            throw new BookNotFoundException("Book not found with id: " + id);
+        }
+        book.setId(id);
+        if (book.getCreatedDate() == null) {
+            book.setCreatedDate(String.valueOf(System.currentTimeMillis()));
+        } else {
+            book.setCreatedDate(existingBook.get().getCreatedDate());
+        }
+        book.setUpdatedDate(String.valueOf(System.currentTimeMillis()));
+        return bookRepository.save(book);
+    }
+
+    @Override
     public Book getBook(Long id) {
         Optional<Book> book = bookRepository.findById(id);
         if (book.isEmpty()) {
